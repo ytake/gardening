@@ -1,0 +1,4 @@
+.vagrant
+/vendor
+vagrant.yaml
+vagrant.json
