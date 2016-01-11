@@ -38,16 +38,9 @@ class ConsoleApplication extends Application
      */
     public function run(InputInterface $input = null, OutputInterface $output = null)
     {
+        $this->addCommands([
+            new \Ytake\Gardening\SetUpCommand(new \Ytake\Gardening\Foundation\Filer),
+        ]);
         parent::run($input, $output);
-    }
-
-    /**
-     * @param Command $command
-     *
-     * @return Command
-     */
-    public function registerCommand(Command $command)
-    {
-        return $this->add($command);
     }
 }

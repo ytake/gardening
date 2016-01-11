@@ -73,16 +73,16 @@ class SetUpCommand extends Command
      */
     protected function action(InputInterface $input, OutputInterface $output)
     {
-        if ($this->file->exists($this->current . '/Vagrantfile')) {
+        if (!$this->file->exists($this->current . '/Vagrantfile')) {
             $this->file->copy(__DIR__ . '/stub/Vagrantfile.dist', $this->current . '/Vagrantfile');
         }
 
-        if ($this->file->exists($this->current . '/append.sh')) {
+        if (!$this->file->exists($this->current . '/append.sh')) {
             $this->file->copy(__DIR__ . '/stub/append.sh', $this->current . '/append.sh');
         }
 
         if ($input->getOption('aliases')) {
-            if ($this->file->exists($this->current . '/aliases')) {
+            if (!$this->file->exists($this->current . '/aliases')) {
                 $this->file->copy(__DIR__ . '/stub/aliases', $this->current . '/aliases');
             }
         }
@@ -101,6 +101,6 @@ class SetUpCommand extends Command
         if (!$this->file->exists($this->current . "/vagrant.{$fileExtension}")) {
             file_put_contents($this->current . "/vagrant.{$fileExtension}", $this->file->$publishMethod($configure));
         }
-        $output->writeln("<fg=cyan;bg=black>success Gardening setup</>");
+        $output->writeln("<fg=cyan>success Gardening setup. see {$this->current}/vagrant.{$fileExtension}</>");
     }
 }
