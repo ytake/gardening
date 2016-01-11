@@ -4,9 +4,22 @@ pre-packaged Vagrant box that provides you a wonderful development environment
 without requiring you to install PHP(7.*), HHVM(3.9), a web server(Nginx or Apache),  
 and any other server software on your local machine.
 
+php7 box:
+```json
+"require-dev": {
+  "ytake/gardening": "~0.0"
+}
+```
+
 (supported for virtualbox only)
 
 for php5.6 https://github.com/ytake/gardening/tree/php56
+
+```json
+"require-dev": {
+  "ytake/gardening": "dev-php56"
+}
+```
 
 ## Included Software
  - CentOS 7
