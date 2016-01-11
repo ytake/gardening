@@ -30,5 +30,6 @@ return [
     // optional
     'elasticsearch' => false,
     'fluentd' => false,
-    'mongodb' => false
+    'mongodb' => false,
+    'couchbase' => false
 ];

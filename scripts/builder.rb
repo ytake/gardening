@@ -181,6 +181,24 @@ class Builder
       end
     end
 
+    # couchbase-server service register
+    config.vm.provision "shell" do |s|
+      s.path = scriptDir + "/couchbase-server-register.sh"
+    end
+
+    # Configure couchbase-server
+    if (settings.has_key?("couchbase") && settings["couchbase"])
+      # enable couchbase-server
+      config.vm.provision "shell" do |s|
+        s.inline = "/bin/systemctl enable couchbase-server && /bin/systemctl restart couchbase-server"
+      end
+    else
+      # disable couchbase-server
+      config.vm.provision "shell" do |s|
+        s.inline = "/bin/systemctl disable couchbase-server && /bin/systemctl stop couchbase-server"
+      end
+    end
+
     # disable for disable_server
     config.vm.provision "shell", run: "always" do |s|
       s.path = scriptDir + "/server-switcher.sh"

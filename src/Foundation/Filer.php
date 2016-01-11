@@ -51,6 +51,6 @@ class Filer
     public function toYaml(array $params)
     {
         $dumper = new Dumper();
-        return $dumper->dump($params, 2);
+        return $dumper->dump($params, 3);
     }
 }
