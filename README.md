@@ -1,11 +1,12 @@
 # Gardening
 
 pre-packaged Vagrant box that provides you a wonderful development environment  
-without requiring you to install PHP(7.*), HHVM(3.9), a web server(Nginx or Apache),  
+without requiring you to install PHP(5.6), HHVM(3.9), a web server(Nginx or Apache),
 and any other server software on your local machine.
 
 (supported for virtualbox only)
 
+for PHP7 https://github.com/ytake/gardening
 ## Included Software
  - CentOS 7
  - Git
