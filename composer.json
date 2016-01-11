@@ -8,6 +8,15 @@
       "email": "yuuki.takezawa@comnect.jp.net"
     }
   ],
+  "keywords": [
+    "vagrant",
+    "develop",
+    "couchbase",
+    "database",
+    "elasticsearch",
+    "centos",
+    "homestead"
+  ],
   "require": {
     "php": ">=5.5.9",
     "symfony/console": "~2.3|~3.0",
