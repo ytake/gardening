@@ -11,7 +11,7 @@ confDir = $confDir ||= File.expand_path("vendor/ytake/gardening", File.dirname(_
 
 GardeningYamlPath = "./vagrant.yaml"
 GardeningJsonPath = "./vagrant.json"
-afterScriptPath = "./after.sh"
+appendScriptPath = "./append.sh"
 aliasesPath = "./aliases"
 
 require File.expand_path(confDir + '/scripts/builder.rb')
@@ -28,7 +28,7 @@ Vagrant.configure(2) do |config|
     Builder.configure(config, JSON.parse(File.read(GardeningJsonPath)))
   end
 
-  if File.exists? afterScriptPath then
-    config.vm.provision "shell", path: afterScriptPath
+  if File.exists? appendScriptPath then
+    config.vm.provision "shell", path: appendScriptPath
   end
 end
