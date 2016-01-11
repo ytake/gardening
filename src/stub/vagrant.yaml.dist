@@ -29,3 +29,7 @@ sites:
 #      value: 'local'
 #    - key: 'APP_DEBUG'
 #      value: 'true'
+elasticsearch: false
+fluentd: false
+mongodb: false
+couchbase: false
