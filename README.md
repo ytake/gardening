@@ -221,6 +221,13 @@ use Elasticsearch by setting the elasticsearch option to true:
 elasticsearch: true
 ```
 
+use Couchbase by setting the couchbase option to true:
+
+```yaml
+couchbase: true
+```
+*Access to admin console http://vagrantIpAddress:8091*
+
 ### Ports
 
 By default, the following ports are forwarded to your gardening environment:
@@ -231,6 +238,7 @@ By default, the following ports are forwarded to your gardening environment:
  - MySQL: 33060 → Forwards To 3306
  - Postgres: 54320 → Forwards To 5432
  - MongoDB: 47017 → Forwards To 27017
+ - Elasticsearch: 19200 → Forwards To 9200
 
 Forwarding Additional Ports:
 ```yaml
