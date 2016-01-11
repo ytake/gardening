@@ -6,6 +6,8 @@ and any other server software on your local machine.
 
 (supported for virtualbox only)
 
+for php5.6 https://github.com/ytake/gardening/tree/php56
+
 ## Included Software
  - CentOS 7
  - Git
