@@ -9,7 +9,7 @@ and any other server software on your local machine.
 ## Included Software
  - CentOS 7
  - Git
- - PHP 7.0(remi repository)
+ - PHP 5.6(remi repository)
  - HHVM(3.9)
  - Apache(2.4.6)
  - Nginx(1.8)

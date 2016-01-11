@@ -10,7 +10,7 @@ class Builder
     config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
     # Configure The Box From ytake/gardening https://atlas.hashicorp.com/ytake/boxes/gardening
-    config.vm.box = settings["box"] ||= "ytake/gardening"
+    config.vm.box = settings["box"] ||= "ytake/gardening56"
     config.vm.box_version = settings["version"] ||= ">= 0.1"
     config.vm.hostname = settings["hostname"] ||= "gardening"
 

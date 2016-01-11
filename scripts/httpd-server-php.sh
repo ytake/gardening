@@ -25,7 +25,7 @@ block="
         Require all granted
     </Directory>
     <FilesMatch \.php$>
-        SetHandler "proxy:unix:/var/run/php7-fpm.sock\|fcgi://localhost"
+        SetHandler "proxy:unix:/var/run/php5-fpm.sock\|fcgi://localhost"
     </FilesMatch>
 </VirtualHost>
 <VirtualHost *:443>
@@ -43,7 +43,7 @@ block="
         Require all granted
     </Directory>
     <FilesMatch \.php$>
-        SetHandler "proxy:unix:/var/run/php7-fpm.sock\|fcgi://localhost"
+        SetHandler "proxy:unix:/var/run/php5-fpm.sock\|fcgi://localhost"
     </FilesMatch>
 </VirtualHost>
 "
