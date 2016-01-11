@@ -100,7 +100,8 @@ class SetUpCommand extends Command
 
         if (!$this->file->exists($this->current . "/vagrant.{$fileExtension}")) {
             file_put_contents($this->current . "/vagrant.{$fileExtension}", $this->file->$publishMethod($configure));
+            return $output->writeln("<fg=cyan>success Gardening setup. see {$this->current}/vagrant.{$fileExtension}</>");
         }
-        $output->writeln("<fg=cyan>success Gardening setup. see {$this->current}/vagrant.{$fileExtension}</>");
+        return $output->writeln("<fg=red>{$this->current}/vagrant.{$fileExtension} file exists.</>");
     }
 }
