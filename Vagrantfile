@@ -14,7 +14,7 @@ GardeningJsonPath = confDir + "/vagrant.json"
 afterScriptPath = confDir + "/after.sh"
 aliasesPath = confDir + "/aliases"
 
-require File.expand_path(confDir + '/scripts/builder.rb')
+require File.expand_path(File.dirname(__FILE__) + '/scripts/builder.rb')
 
 Vagrant.configure(2) do |config|
 

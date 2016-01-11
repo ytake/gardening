@@ -27,6 +27,7 @@ return [
             'hhvm' => false
         ]
     ],
+    // optional
     'elasticsearch' => false,
     'fluentd' => false,
     'mongodb' => false
