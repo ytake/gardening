@@ -26,6 +26,92 @@ and any other server software on your local machine.
  - fluentd
  - Couchbase
 
+## included php extensions
+
+```
+[PHP Modules]
+apc
+apcu
+bcmath
+bz2
+calendar
+Core
+ctype
+curl
+date
+dom
+exif
+fileinfo
+filter
+ftp
+gd
+gettext
+hash
+iconv
+imagick
+json
+ldap
+libxml
+mbstring
+mcrypt
+memcached
+mongodb
+msgpack
+mysqli
+mysqlnd
+openssl
+pcntl
+pcre
+PDO
+pdo_dblib
+pdo_mysql
+pdo_pgsql
+pdo_sqlite
+pgsql
+Phar
+readline
+Reflection
+session
+SimpleXML
+sockets
+SPL
+sqlite3
+standard
+tokenizer
+wddx
+xdebug
+xml
+xmlreader
+xmlwriter
+xsl
+Zend OPcache
+zlib
+
+[Zend Modules]
+Xdebug
+Zend OPcache
+```
+
+## Composer global
+included:
+ - fabpot/php-cs-fixer
+ - squizlabs/php_codesniffer
+ - phpmd/phpmd
+
+## MySQL and PostgreSQL
+ - user:gardening
+ - password:secret
+
+## Xdebug
+default:
+```
+xdebug.remote_enable = 1
+xdebug.remote_connect_back = 1
+xdebug.remote_port = 9080
+xdebug.max_nesting_level = 512
+xdebug.idekey = PHPSTORM
+```
+
 ## Install Gardening Box
 
 ### case 1, your "home" directory
@@ -46,6 +132,17 @@ To install gardening directly into your project, require it using Composer:
 
 ```bash
 $ composer require ytake/gardening --dev
+```
+
+use the make command to generate the Vagrantfile and gardening.yaml(or gardening.json) file in your project root.
+
+```bash
+$ ./vendor/bin/gardening gardening:setup
+```
+
+gardening.json:
+```bash
+$ ./vendor/bin/gardening gardening:setup --filetype=json
 ```
 
 ## Configuration
