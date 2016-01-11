@@ -1,0 +1,31 @@
+---
+ip: "192.168.10.10"
+memory: 2048
+cpus: 1
+hostname: gardening
+name: gardening
+
+authorize: ~/.ssh/id_rsa.pub
+
+keys:
+  - ~/.ssh/id_rsa
+
+folders:
+  - map: ~/applicationPath
+    to: /home/vagrant/applicationPath
+sites:
+  - map: gardening.app
+    to: "/home/vagrant/applicationPath/public"
+    # if use hhvm and Hack
+    # hhvm: true
+
+# create database(optional)
+# databases:
+#    - append_tables
+
+# Add any environment variables.
+# variables:
+#    - key: 'APP_ENV'
+#      value: 'local'
+#    - key: 'APP_DEBUG'
+#      value: 'true'

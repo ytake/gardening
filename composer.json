@@ -1,0 +1,28 @@
+{
+  "name": "ytake/gardening",
+  "description": "Vagrant(centos7) for web developers.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Yuuki Takezawa",
+      "email": "yuuki.takezawa@comnect.jp.net"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9",
+    "symfony/console": "~2.3|~3.0",
+    "symfony/yaml": "~2.3|~3.0"
+  },
+  "require-dev":{
+    "symfony/var-dumper": "~3.0",
+    "phpunit/phpunit": "~4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ytake\\Gardening\\": "src/"
+    }
+  },
+  "bin": [
+    "gardening"
+  ]
+}
