@@ -19,7 +19,7 @@ block="server {
     listen ${4:-443} ssl;
     server_name $1;
     root \"$2\";
-    index index.html index.htm index.php;
+    index index.html index.htm index.php index.hh;
     charset utf-8;
     location / {
         try_files \$uri \$uri/ /index.php?\$query_string;
@@ -29,12 +29,13 @@ block="server {
     access_log off;
     error_log  /var/log/nginx/$1-error.log error;
     sendfile off;
-    location ~ \.php$ {
+    location ~ \.(hh|php)$ {
+        fastcgi_keep_conn on;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
         fastcgi_pass 127.0.0.1:9000;
         fastcgi_index index.php;
-        fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
         include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME \$realpath_root\$fastcgi_script_name;
     }
     location ~ /\.ht {
         deny all;
@@ -48,6 +49,7 @@ echo "$block" > "/etc/nginx/conf.d/$1.conf"
 # for HACK
 touch $2/.hhconfig
 
+/usr/local/bin/hh_server -d $2 --waiting-client 6
 /bin/systemctl restart php-fpm
 /bin/systemctl restart nginx
 /bin/systemctl restart hhvm
