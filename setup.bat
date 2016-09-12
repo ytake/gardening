@@ -4,9 +4,9 @@ set GardeningRoot=%HOMEDRIVE%%HOMEPATH%\.gardening
 
 mkdir "%GardeningRoot%"
 
-copy /-y src\stubs\vagrant.yaml.dist "%GardeningRoot%\vagrant.yaml"
-copy /-y src\stubs\append.sh "%GardeningRoot%\append.sh"
-copy /-y src\stubs\aliases "%GardeningRoot%\aliases"
+copy /-y src\stub\vagrant.yaml.dist "%GardeningRoot%\vagrant.yaml"
+copy /-y src\stub\append.sh "%GardeningRoot%\append.sh"
+copy /-y src\stub\aliases "%GardeningRoot%\aliases"
 
 set GardeningRoot=
 echo initialized
