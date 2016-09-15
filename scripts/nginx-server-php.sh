@@ -55,5 +55,7 @@ block="server {
 
 echo "$block" > "/etc/nginx/conf.d/$1.conf"
 
+sed -i "s/user nginx;/user vagrant;/" /etc/nginx/nginx.conf
+sed -i "s/user  nginx;/user vagrant;/" /etc/nginx/nginx.conf
 /bin/systemctl restart php-fpm
 /bin/systemctl restart nginx

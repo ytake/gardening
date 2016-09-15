@@ -50,8 +50,8 @@ echo "$block" > "/etc/nginx/conf.d/$1.conf"
 # for HACK
 touch $2/.hhconfig
 
-sudo sed -i "s/user nginx;/user vagrant;/" /etc/nginx/nginx.conf
-sudo sed -i "s/user  nginx;/user vagrant;/" /etc/nginx/nginx.conf
+sed -i "s/user nginx;/user vagrant;/" /etc/nginx/nginx.conf
+sed -i "s/user  nginx;/user vagrant;/" /etc/nginx/nginx.conf
 /usr/local/bin/hh_server -d $2 --waiting-client 6
 /bin/systemctl restart php-fpm
 /bin/systemctl restart nginx
