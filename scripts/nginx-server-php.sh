@@ -34,9 +34,11 @@ block="server {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
         fastcgi_pass unix:/var/run/php7-fpm.sock;
         fastcgi_index index.php;
-        include fastcgi_params;
+
         fastcgi_param SCRIPT_FILENAME \$realpath_root\$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT \$realpath_root;
         fastcgi_intercept_errors off;
+        include fastcgi_params;
         fastcgi_buffer_size 16k;
         fastcgi_buffers 4 16k;
         fastcgi_connect_timeout 300;
