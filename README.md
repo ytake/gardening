@@ -1,7 +1,7 @@
 # Gardening
 
 pre-packaged Vagrant box that provides you a wonderful development environment  
-without requiring you to install PHP(7.*), HHVM(3.9), a web server(Nginx or Apache),  
+without requiring you to install PHP(7.0), HHVM(3.15), a web server(Nginx or Apache),  
 and any other server software on your local machine.
 
 php7 box:
@@ -13,33 +13,25 @@ php7 box:
 
 (supported for virtualbox only)
 
-for php5.6 https://github.com/ytake/gardening/tree/php56
-
-```json
-"require-dev": {
-  "ytake/gardening": "dev-php56"
-}
-```
-
 ## Included Software
  - CentOS 7
  - Git
- - PHP 7.0(remi repository)
- - HHVM(3.9)
- - Apache(2.4.6)
- - Nginx(1.8)
- - MySQL(5.6)
+ - PHP 7.0 (remi repository)
+ - HHVM (3.15)
+ - Apache (2.4.6)
+ - Nginx (1.10)
+ - MySQL (5.7)
  - Sqlite3
- - PostgreSQL(9.4)
- - Composer
- - Node.js (With Grunt, and Gulp)
+ - PostgreSQL (9.4)
+ - Composer (1.3)
+ - Node.js (Gulp, webpack)
  - Redis
  - Memcached
- - Elasticsearch
+ - Elasticsearch(5.1)
  - MongoDB
  - Java(1.8)
  - fluentd
- - Couchbase
+ - Couchbase(4.5)
 
 ## included php extensions
 
@@ -114,8 +106,8 @@ included:
  - phpmd/phpmd
 
 ## MySQL and PostgreSQL
- - user:gardening
- - password:secret
+ - user: gardening
+ - password: 00:secreT,@
 
 ## Xdebug
 default:

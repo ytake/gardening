@@ -11,7 +11,7 @@ class Builder
 
     # Configure The Box From ytake/gardening https://atlas.hashicorp.com/ytake/boxes/gardening
     config.vm.box = settings["box"] ||= "ytake/gardening"
-    config.vm.box_version = settings["version"] ||= ">= 0.1"
+    config.vm.box_version = settings["version"] ||= ">= 0.2"
     config.vm.hostname = settings["hostname"] ||= "gardening"
 
     # Configure A Private Network IP
@@ -93,7 +93,9 @@ class Builder
         mount_opts = []
 
         if (folder["type"] == "nfs")
-          mount_opts = folder["mount_opts"] ? folder["mount_opts"] : ['actimeo=1']
+          mount_opts = folder["mount_options"] ? folder["mount_options"] : ['actimeo=1', 'nolock']
+        elsif (folder["type"] == "smb")
+            mount_opts = folder["mount_options"] ? folder["mount_options"] : ['vers=3.02', 'mfsymlinks']
         end
 
         # For b/w compatibility keep separate 'mount_opts', but merge with options
