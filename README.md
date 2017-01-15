@@ -37,16 +37,20 @@ php7 box:
 
 ```
 [PHP Modules]
+amqp
 apc
 apcu
 bcmath
 bz2
 calendar
+cassandra
 Core
+couchbase
 ctype
 curl
 date
 dom
+event
 exif
 fileinfo
 filter
@@ -55,6 +59,7 @@ gd
 gettext
 hash
 iconv
+igbinary
 imagick
 json
 ldap
@@ -69,30 +74,46 @@ mysqlnd
 openssl
 pcntl
 pcre
+pcs
 PDO
 pdo_dblib
 pdo_mysql
 pdo_pgsql
 pdo_sqlite
+pdo_sqlsrv
 pgsql
+phalcon
 Phar
+posix
 readline
+redis
 Reflection
 session
+shmop
 SimpleXML
+soap
 sockets
 SPL
 sqlite3
+sqlsrv
 standard
+Stomp
+sysvmsg
+sysvsem
+sysvshm
 tokenizer
+uopz
+uuid
 wddx
 xdebug
+xhprof
 xml
 xmlreader
 xmlwriter
 xsl
 Zend OPcache
 zlib
+zmq
 
 [Zend Modules]
 Xdebug
