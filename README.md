@@ -22,7 +22,7 @@ php7 box:
  - Nginx (1.10)
  - MySQL (5.7)
  - Sqlite3
- - PostgreSQL (9.4)
+ - PostgreSQL (9.5)
  - Composer (1.3)
  - Node.js (Gulp, webpack)
  - Redis
@@ -85,6 +85,7 @@ pgsql
 phalcon
 Phar
 posix
+rdkafka
 readline
 redis
 Reflection
@@ -104,6 +105,7 @@ sysvshm
 tokenizer
 uopz
 uuid
+v8js
 wddx
 xdebug
 xhprof
