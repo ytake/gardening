@@ -11,12 +11,12 @@ for PHP7 https://github.com/ytake/gardening
  - CentOS 7
  - Git
  - PHP 5.6(remi repository)
- - HHVM(3.9)
+ - HHVM(3.15)
  - Apache(2.4.6)
  - Nginx(1.8)
- - MySQL(5.6)
+ - MySQL(5.7)
  - Sqlite3
- - PostgreSQL(9.4)
+ - PostgreSQL(9.5)
  - Composer
  - Node.js (With Grunt, and Gulp)
  - Redis
@@ -100,8 +100,8 @@ included:
  - phpmd/phpmd
 
 ## MySQL and PostgreSQL
- - user:gardening
- - password:secret
+ - user: gardening
+ - password: 00:secreT,@
 
 ## Xdebug
 default:
