@@ -229,6 +229,14 @@ sites:
       hhvm: true
 ```
 
+use symfony by setting the type option:
+```yaml
+sites:
+    - map: gardening.app
+      to: /home/vagrant/yourProject/public
+      type: symfony
+```
+
 ### Optional
 
 use fluentd by setting the fluentd option to true:
