@@ -120,10 +120,6 @@ class Builder
 
       type = site["type"] ||= "php"
 
-      if (site.has_key?("hhvm") && site["hhvm"])
-        type = "hhvm"
-      end
-
       config.vm.provision "shell" do |s|
         s.path = scriptDir + "/#{web_server}-server-#{type}.sh"
         s.args = [site["map"], site["to"], site["port"] ||= "80", site["ssl"] ||= "443"]

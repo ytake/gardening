@@ -23,8 +23,7 @@ return [
     'sites' => [
         [
             'map' => 'gardening.app',
-            'to' => '/home/vagrant/Code/public',
-            'hhvm' => false
+            'to' => '/home/vagrant/Code/public'
         ]
     ],
     // optional
