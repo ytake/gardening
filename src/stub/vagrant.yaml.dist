@@ -16,8 +16,6 @@ folders:
 sites:
   - map: gardening.app
     to: "/home/vagrant/applicationPath/public"
-    # if use hhvm and Hack
-    # hhvm: true
 
 # create database(optional)
 # databases:
