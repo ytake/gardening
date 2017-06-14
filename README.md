@@ -13,11 +13,13 @@ php7 box:
 
 (supported for virtualbox only)
 
+## boxes
+https://atlas.hashicorp.com/ytake
+
 ## Included Software
  - CentOS 7
  - Git
- - PHP 7.0 (remi repository)
- - HHVM (3.15)
+ - PHP 7.x (remi repository)
  - Apache (2.4.6)
  - Nginx (1.10)
  - MySQL (5.7)
@@ -105,7 +107,6 @@ sysvshm
 tokenizer
 uopz
 uuid
-v8js
 wddx
 xdebug
 xhprof
@@ -221,14 +222,6 @@ sites:
       to: /home/vagrant/yourProject/public
     - map: gardening.second.app
       to: /home/vagrant/yourSecondProject/public
-```
-
-use HHVM by setting the hhvm option to true:
-```yaml
-sites:
-    - map: gardening.app
-      to: /home/vagrant/yourProject/public
-      hhvm: true
 ```
 
 use symfony by setting the type option:
