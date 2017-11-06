@@ -11,7 +11,7 @@ class Builder
 
     # Configure The Box From ytake/gardening https://atlas.hashicorp.com/ytake/boxes/gardening
     config.vm.box = settings["box"] ||= "ytake/gardening"
-    config.vm.box_version = settings["version"] ||= ">= 0.2"
+    config.vm.box_version = settings["version"] ||= ">= 0.4"
     config.vm.hostname = settings["hostname"] ||= "gardening"
 
     # Configure A Private Network IP
@@ -51,7 +51,8 @@ class Builder
         3306 => 33060,
         5432 => 54320,
         27017 => 47017,
-        9200 => 19200
+        9200 => 19200,
+        5601 => 56010,
     }
 
     # Use Default Port Forwarding Unless Overridden
@@ -151,6 +152,18 @@ class Builder
       # disable elasticsearch
       config.vm.provision "shell" do |s|
         s.inline = "/bin/systemctl disable elasticsearch && /bin/systemctl stop elasticsearch"
+      end
+    end
+
+    # Configure kibana
+    if (settings.has_key?("kibana") && settings["kibana"])
+        config.vm.provision "shell" do |s|
+          s.inline = "/bin/systemctl enable kibana && /bin/systemctl daemon-reload && /bin/systemctl restart kibana"
+        end
+    else
+      # disable kibana
+      config.vm.provision "shell" do |s|
+        s.inline = "/bin/systemctl disable kibana && /bin/systemctl stop kibana"
       end
     end
 
