@@ -21,15 +21,16 @@ https://atlas.hashicorp.com/ytake
  - Git
  - PHP 7.x (remi repository)
  - Apache (2.4.6)
- - Nginx (1.10)
+ - Nginx (1.12)
  - MySQL (5.7)
  - Sqlite3
  - PostgreSQL (9.5)
- - Composer (1.3)
+ - Composer (1.5)
  - Node.js (Gulp, webpack)
- - Redis
+ - Redis(4.0)
  - Memcached
- - Elasticsearch(5.1)
+ - Elasticsearch(5.6)
+ - Kibana(5.6)
  - MongoDB
  - Java(1.8)
  - fluentd
@@ -42,6 +43,7 @@ https://atlas.hashicorp.com/ytake
 amqp
 apc
 apcu
+ast
 bcmath
 bz2
 calendar
@@ -86,6 +88,7 @@ pdo_sqlsrv
 pgsql
 phalcon
 Phar
+phpiredis
 posix
 rdkafka
 readline
@@ -115,6 +118,7 @@ xmlreader
 xmlwriter
 xsl
 Zend OPcache
+zip
 zlib
 zmq
 
@@ -125,7 +129,7 @@ Zend OPcache
 
 ## Composer global
 included:
- - fabpot/php-cs-fixer
+ - friendsofphp/php-cs-fixer
  - squizlabs/php_codesniffer
  - phpmd/phpmd
 
@@ -234,11 +238,19 @@ sites:
 
 ### Optional
 
-use fluentd by setting the fluentd option to true:
+#### Fluentd
+
+[Fluentd](https://www.fluentd.org/)
+
+use Fluentd by setting the fluentd option to true:
 
 ```yaml
 fluentd: true
 ```
+
+#### MongoDB
+
+[MongoDB](https://www.mongodb.com/)
 
 use MongoDB by setting the mongodb option to true:
 
@@ -246,11 +258,29 @@ use MongoDB by setting the mongodb option to true:
 mongodb: true
 ```
 
+#### Elasticsearch
+
+[Elasticsearch](https://www.elastic.co) 
+
 use Elasticsearch by setting the elasticsearch option to true:
 
 ```yaml
 elasticsearch: true
 ```
+
+#### Kibana
+
+[Kibana](https://www.elastic.co/products/kibana)
+
+use Kibana by setting the kibana option to true:
+
+```yaml
+kibana: true
+```
+
+#### Couchbase
+
+[Couchbase](https://www.couchbase.com/)
 
 use Couchbase by setting the couchbase option to true:
 
@@ -270,7 +300,8 @@ By default, the following ports are forwarded to your gardening environment:
  - Postgres: 54320 → Forwards To 5432
  - MongoDB: 47017 → Forwards To 27017
  - Elasticsearch: 19200 → Forwards To 9200
-
+ - kibana: 56010 → Forwards To 5601
+ 
 Forwarding Additional Ports:
 ```yaml
 ports:
