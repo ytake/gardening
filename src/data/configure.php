@@ -22,7 +22,7 @@ return [
     ],
     'sites' => [
         [
-            'map' => 'gardening.app',
+            'map' => 'gardening.app.vagrant',
             'to' => '/home/vagrant/Code/public'
         ]
     ],

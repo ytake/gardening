@@ -19,9 +19,6 @@ Vagrant.require_version '>= 1.9.0'
 
 Vagrant.configure(2) do |config|
 
-  config.vm.box = "ytake/gardening"
-  config.vm.box_version = ">= 1.0"
-
   if File.exists? aliasesPath then
     config.vm.provision "file", source: aliasesPath, destination: "~/.bash_aliases"
   end

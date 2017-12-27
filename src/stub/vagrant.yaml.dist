@@ -14,7 +14,7 @@ folders:
   - map: ~/applicationPath
     to: /home/vagrant/applicationPath
 sites:
-  - map: gardening.app
+  - map: gardening.app.vagrant
     to: "/home/vagrant/applicationPath/public"
 
 # create database(optional)

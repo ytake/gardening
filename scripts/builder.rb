@@ -13,7 +13,7 @@ class Builder
 
     # Configure The Box From ytake/gardening https://atlas.hashicorp.com/ytake/boxes/gardening
     config.vm.box = settings["box"] ||= "ytake/gardening"
-    config.vm.box_version = settings["version"] ||= ">= 0.4"
+    config.vm.box_version = settings["version"] ||= ">= 1.0.0"
     config.vm.hostname = settings["hostname"] ||= "gardening"
 
     # Configure A Private Network IP
@@ -125,6 +125,7 @@ class Builder
     # timezone
     timezone = settings["timezone"] ||= "Asia/Tokyo"
     config.vm.provision "shell" do |s|
+      s.name = "timezone specified: " + timezone
       s.path = scriptDir + "/setup-timezone.sh"
       s.args = [timezone]
     end
@@ -132,6 +133,7 @@ class Builder
     # choose PHP Version (update-alternatives: for cli, build, compile etc...)
     php_alternatives = settings["php-alternatives"] ||= "7.2"
     config.vm.provision "shell" do |s|
+      s.name = "default php version: " + php_alternatives
       s.path = scriptDir + "/setup-php-alternatives.sh"
       s.args = [php_alternatives]
     end
@@ -144,6 +146,11 @@ class Builder
       type = site["type"] ||= "php"
 
       config.vm.provision "shell" do |s|
+        s.path = scriptDir + "/setup-#{web_server}-certificate.sh"
+        s.args = [site["map"],]
+      end
+
+      config.vm.provision "shell" do |s|
         s.path = scriptDir + "/#{web_server}-server-#{type}.sh"
         s.args = [site["map"], site["to"], site["port"] ||= "80", site["ssl"] ||= "443", site["php"] ||= "7.2"]
       end
@@ -153,11 +160,13 @@ class Builder
     if settings.has_key?("databases")
       settings["databases"].each do |db|
         config.vm.provision "shell" do |s|
+          s.name = "creating database[MySQL]: " + db
           s.path = scriptDir + "/create-mysql.sh"
           s.args = [db]
         end
 
         config.vm.provision "shell" do |s|
+          s.name = "creating database[PostgreSQL]: " + db
           s.path = scriptDir + "/create-postgres.sh"
           s.args = [db]
         end
@@ -168,12 +177,13 @@ class Builder
     # Configure Elasticsearch
     if (settings.has_key?("elasticsearch") && settings["elasticsearch"])
         config.vm.provision "shell" do |s|
+          s.name = "enabled Elasticsearch"
           s.path = scriptDir + "/setup-elasticsearch.sh"
-          s.inline = "/bin/systemctl enable elasticsearch && /bin/systemctl daemon-reload && /bin/systemctl restart elasticsearch"
         end
     else
       # disable elasticsearch
       config.vm.provision "shell" do |s|
+        s.name = "disabled Elasticsearch"
         s.inline = "/bin/systemctl disable elasticsearch && /bin/systemctl stop elasticsearch"
       end
     end
@@ -181,11 +191,13 @@ class Builder
     # Configure kibana
     if (settings.has_key?("kibana") && settings["kibana"])
         config.vm.provision "shell" do |s|
+          s.name = "enabled Kibana"
           s.inline = "/bin/systemctl enable kibana && /bin/systemctl daemon-reload && /bin/systemctl restart kibana"
         end
     else
       # disable kibana
       config.vm.provision "shell" do |s|
+        s.name = "disabled Kibana"
         s.inline = "/bin/systemctl disable kibana && /bin/systemctl stop kibana"
       end
     end
@@ -246,7 +258,7 @@ class Builder
     if (settings.has_key?("rabbitmq") && settings["rabbitmq"])
       # disable mongodb
       config.vm.provision "shell" do |s|
-        s.inline = "/bin/systemctl enable rabbitmq-server && /bin/systemctl restart rabbitmq-server && rabbitmq-plugins enable rabbitmq_management"
+        s.path = scriptDir + "/setup-rabbitmq.sh"
       end
     else
       # disable mongodb

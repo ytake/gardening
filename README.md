@@ -155,9 +155,26 @@ default:
 ```
 xdebug.remote_enable = 1
 xdebug.remote_connect_back = 1
-xdebug.remote_port = 9070|9071|9072
 xdebug.max_nesting_level = 512
 xdebug.idekey = PHPSTORM
+```
+
+### php7.0
+
+```
+xdebug.remote_port = 9070
+```
+
+### php7.1
+
+```
+xdebug.remote_port = 9071
+```
+
+### php7.2
+
+```
+xdebug.remote_port = 9072
 ```
 
 ## Install Gardening Box
@@ -208,6 +225,15 @@ Apache can be selected if necessary
 web_server: httpd
 ```
 
+### Choose PHP version
+default PHP7.2
+
+```yaml
+php-alternatives: 7.1
+```
+
+(7.0 or 7.1 or 7.2)
+
 ### Configuring Shared Folders
 
 ```yaml
@@ -228,14 +254,14 @@ folders:
 ### Configuring Sites
 ```yaml
 sites:
-    - map: gardening.app
+    - map: gardening.app.vagrant
       to: /home/vagrant/yourProject/public
 ```
 
 many sites:
 ```yaml
 sites:
-    - map: gardening.app
+    - map: gardening.app.vagrant
       to: /home/vagrant/yourProject/public
     - map: gardening.second.app
       to: /home/vagrant/yourSecondProject/public
@@ -244,9 +270,23 @@ sites:
 use symfony by setting the type option:
 ```yaml
 sites:
-    - map: gardening.app
+    - map: gardening.app.vagrant
       to: /home/vagrant/yourProject/public
       type: symfony
+```
+
+**symfony: symfony2, 3 / symfony4: symfony4**
+
+#### Multiple PHP Versions
+
+```yaml
+sites:
+    - map: gardening.app.vagrant
+      to: /home/vagrant/yourProject/public
+      php: "7.1"
+    - map: gardening.second.app
+      to: /home/vagrant/yourSecondProject/public
+      php: "7.2"
 ```
 
 ### Optional
@@ -291,6 +331,8 @@ use Kibana by setting the kibana option to true:
 kibana: true
 ```
 
+*Access to Kibana http://vagrantIpAddress:5601/app/kibana*
+
 #### Couchbase
 
 [Couchbase](https://www.couchbase.com/)
@@ -300,7 +342,42 @@ use Couchbase by setting the couchbase option to true:
 ```yaml
 couchbase: true
 ```
+
 *Access to admin console http://vagrantIpAddress:8091*
+
+#### Apache Cassandra
+
+[Cassabdra](http://cassandra.apache.org/)  
+[Cassabdra(DataStax)](http://docs.datastax.com/en/landing_page/doc/landing_page/current.html)  
+
+use Apache Cassandra by setting the cassandra option to true:
+
+```yaml
+cassandra: true
+```
+
+#### RabbitMQ
+
+[RabbitMQ](https://www.rabbitmq.com/)
+
+use Couchbase by setting the rabbitmq option to true:
+
+```yaml
+rabbitmq: true
+```
+
+*Access to rabbitmq management web ui http://vagrantIpAddress:15672*
+
+#### Apache Kafka (Confluent Platform)
+
+[Apache Kafka](https://kafka.apache.org/)  
+[Confluent](https://docs.confluent.io/current/)
+
+use Kafka by setting the confluent option to true:
+
+```yaml
+confluent: true
+```
 
 ### Ports
 
@@ -323,3 +400,5 @@ ports:
     - send: 7777
       to: 777
 ```
+
+## Notice
