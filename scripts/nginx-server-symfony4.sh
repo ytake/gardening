@@ -24,7 +24,7 @@ block="server {
     charset utf-8;
 
     location / {
-        try_files \$uri \$uri/ /app_dev.php?\$query_string;
+        try_files \$uri \$uri/ /index.php?\$query_string;
     }
 
     location = /favicon.ico { access_log off; log_not_found off; }
@@ -38,7 +38,7 @@ block="server {
     client_max_body_size 100m;
 
     # DEV
-    location ~ ^/(app_dev|app_test|config)\.php(/|\$) {
+    location ~ ^/index\.php(/|\$) {
         fastcgi_split_path_info ^(.+\.php)(/.+)\$;
         fastcgi_pass unix:/var/run/$PHP_SOCKET;
         include fastcgi_params;
@@ -47,19 +47,6 @@ block="server {
         fastcgi_intercept_errors off;
         fastcgi_buffer_size 16k;
         fastcgi_buffers 4 16k;
-    }
-
-    # PROD
-    location ~ ^/app\.php(/|$) {
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass unix:/var/run/$PHP_SOCKET;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME \$realpath_root\$fastcgi_script_name;
-
-        fastcgi_intercept_errors off;
-        fastcgi_buffer_size 16k;
-        fastcgi_buffers 4 16k;
-        internal;
     }
 
     location ~ /\.ht {

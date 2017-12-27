@@ -32,7 +32,7 @@ class SetUpCommand extends Command
     protected $projectName;
 
     /** @var string */
-    protected $defaultName;
+    protected $defaultProjectName;
 
     /**
      * SetUpCommand constructor.
@@ -46,7 +46,7 @@ class SetUpCommand extends Command
         $this->file = $file;
         $this->current = getcwd();
         $this->projectName = basename($this->current);
-        $this->defaultName = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $this->projectName)));
+        $this->defaultProjectName = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $this->projectName)));
     }
 
     /**
@@ -88,13 +88,13 @@ class SetUpCommand extends Command
         }
         /** @var string[] $configure */
         $configure = require __DIR__ . '/data/configure.php';
-        $configure['name'] = ($input->getOption('name')) ? $input->getOption('name') : $this->defaultName;
+        $configure['name'] = ($input->getOption('name')) ? $input->getOption('name') : $this->defaultProjectName;
         $configure['hostname'] = $input->getOption('hostname');
         $configure['ip'] = $input->getOption('ip');
         $configure['folders'][0]['map'] = $this->current;
-        $configure['folders'][0]['to'] = str_replace('Code', $this->defaultName, $configure['folders'][0]['to']);
+        $configure['folders'][0]['to'] = str_replace('Code', $this->defaultProjectName, $configure['folders'][0]['to']);
 
-        $configure['sites'][0]['to'] = str_replace('Code', $this->defaultName, $configure['sites'][0]['to']);
+        $configure['sites'][0]['to'] = str_replace('Code', $this->defaultProjectName, $configure['sites'][0]['to']);
         $fileExtension = mb_strtolower($input->getOption('filetype'));
         $publishMethod = 'to' . ucfirst($fileExtension);
 

@@ -19,7 +19,7 @@ class ConsoleApplication extends Application
     private $name = "gardening";
 
     /** @var float  console application version */
-    private $version = 0.3;
+    private $version = '1.0.0';
 
     /**
      * ConsoleApplication constructor.

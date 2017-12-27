@@ -2,3 +2,4 @@
 /vendor
 vagrant.yaml
 vagrant.json
+composer.lock
