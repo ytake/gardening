@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 
+PHP=$5
+PHP_SOCKET="php72-fpm.sock"
+
+if [ $PHP='7.0' ];
+then
+    PHP_SOCKET="php70-fpm.sock"
+elif [ $PHP='7.1' ];
+then
+    PHP_SOCKET="php71-fpm.sock"
+else
+    PHP_SOCKET="php72-fpm.sock"
+fi
+
 mkdir /etc/httpd/ssl 2>/dev/null
 
 PATH_SSL="/etc/httpd/ssl"
@@ -25,7 +38,7 @@ block="
         Require all granted
     </Directory>
     <FilesMatch \.php$>
-        SetHandler "proxy:unix:/var/run/php7-fpm.sock\|fcgi://localhost"
+        SetHandler "proxy:unix:/var/run/$PHP_SOCKET\|fcgi://localhost"
     </FilesMatch>
 </VirtualHost>
 <VirtualHost *:443>
@@ -43,17 +56,11 @@ block="
         Require all granted
     </Directory>
     <FilesMatch \.php$>
-        SetHandler "proxy:unix:/var/run/php7-fpm.sock\|fcgi://localhost"
+        SetHandler "proxy:unix:/var/run/PHP_SOCKET\|fcgi://localhost"
     </FilesMatch>
 </VirtualHost>
 "
 
 echo "$block" > "/etc/httpd/conf.d/$1.conf"
 
-HH_CONFIG=$2/.hhconfig
-if [ -f "$HH_CONFIG" ]; then
-    rm -rf $2/.hhconfig
-fi
-
-/bin/systemctl restart php-fpm
 /bin/systemctl restart httpd

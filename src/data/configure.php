@@ -6,7 +6,7 @@
  */
 return [
     'ip' => "192.168.10.10",
-    'memory' => 2048,
+    'memory' => 4096,
     'cpus' => 1,
     'hostname' => 'gardening',
     'name' => 'gardening',
@@ -30,5 +30,9 @@ return [
     'elasticsearch' => false,
     'fluentd' => false,
     'mongodb' => false,
-    'couchbase' => false
+    'couchbase' => false,
+    'cassandra' => false,
+    'confluent' => false,
+    'rabbitmq' => false,
+    'timezone' => 'Asia/Tokyo',
 ];

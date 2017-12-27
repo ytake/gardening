@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
 
+PHP=$5
+PHP_SOCKET="php72-fpm.sock"
+
+if [ $PHP='7.0' ];
+then
+    PHP_SOCKET="php70-fpm.sock"
+elif [ $PHP='7.1' ];
+then
+    PHP_SOCKET="php71-fpm.sock"
+else
+    PHP_SOCKET="php72-fpm.sock"
+fi
+
+
 mkdir /etc/nginx/ssl 2>/dev/null
 if [ ! -f $PATH_KEY ] || [ ! -f $PATH_CSR ] || [ ! -f $PATH_CRT ]
 then
@@ -35,7 +49,7 @@ block="server {
     # DEV
     location ~ ^/(app_dev|app_test|config)\.php(/|\$) {
         fastcgi_split_path_info ^(.+\.php)(/.+)\$;
-        fastcgi_pass unix:/var/run/php7-fpm.sock;
+        fastcgi_pass unix:/var/run/$PHP_SOCKET;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME \$realpath_root\$fastcgi_script_name;
 
@@ -47,7 +61,7 @@ block="server {
     # PROD
     location ~ ^/app\.php(/|$) {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass unix:/var/run/php7-fpm.sock;
+        fastcgi_pass unix:/var/run/$PHP_SOCKET;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME \$realpath_root\$fastcgi_script_name;
 
@@ -70,5 +84,4 @@ echo "$block" > "/etc/nginx/conf.d/$1.conf"
 
 sed -i "s/user nginx;/user vagrant;/" /etc/nginx/nginx.conf
 sed -i "s/user  nginx;/user vagrant;/" /etc/nginx/nginx.conf
-/bin/systemctl restart php-fpm
 /bin/systemctl restart nginx

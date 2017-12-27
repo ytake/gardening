@@ -1,13 +1,13 @@
 # Gardening
 
 pre-packaged Vagrant box that provides you a wonderful development environment  
-without requiring you to install PHP(7.0), HHVM(3.15), a web server(Nginx or Apache),  
+without requiring you to install PHP(7.0 ~ 7.2), a web server(Nginx or Apache),  
 and any other server software on your local machine.
 
 php7 box:
 ```json
 "require-dev": {
-  "ytake/gardening": "~0.0"
+  "ytake/gardening": "~1.0"
 }
 ```
 
@@ -24,18 +24,23 @@ https://atlas.hashicorp.com/ytake
  - Nginx (1.12)
  - MySQL (5.7)
  - Sqlite3
- - PostgreSQL (9.5)
+ - PostgreSQL (10.1)
  - Composer (1.5)
  - Node.js (Gulp, webpack)
  - Redis(4.0)
  - Memcached
- - Elasticsearch(5.6)
- - Kibana(5.6)
+ - Elasticsearch(6.1)
+ - Kibana(6.1)
  - MongoDB
  - Java(1.8)
  - fluentd
  - Couchbase(4.5)
-
+ - beanstalkd(1.10)
+ - RabbitMQ(3.7.2)
+ - Apache Cassandra(3.11)
+ - Apache Spark(2.2.1)
+ - Apache Kafka(1.0.0 / Confluent Platform)
+ 
 ## included php extensions
 
 ```
@@ -61,16 +66,19 @@ filter
 ftp
 gd
 gettext
+gmp
 hash
 iconv
 igbinary
 imagick
+intl
 json
 ldap
+libsodium
 libxml
 mbstring
-mcrypt
 memcached
+memprof
 mongodb
 msgpack
 mysqli
@@ -99,9 +107,12 @@ shmop
 SimpleXML
 soap
 sockets
+sodium
+solr
 SPL
 sqlite3
 sqlsrv
+ssh2
 standard
 Stomp
 sysvmsg
@@ -115,8 +126,10 @@ xdebug
 xhprof
 xml
 xmlreader
+xmlrpc
 xmlwriter
 xsl
+yaml
 Zend OPcache
 zip
 zlib
@@ -133,7 +146,7 @@ included:
  - squizlabs/php_codesniffer
  - phpmd/phpmd
 
-## MySQL and PostgreSQL
+## MySQL and PostgreSQL, RabbitMQ
  - user: gardening
  - password: 00:secreT,@
 
@@ -142,7 +155,7 @@ default:
 ```
 xdebug.remote_enable = 1
 xdebug.remote_connect_back = 1
-xdebug.remote_port = 9080
+xdebug.remote_port = 9070|9071|9072
 xdebug.max_nesting_level = 512
 xdebug.idekey = PHPSTORM
 ```
@@ -301,7 +314,9 @@ By default, the following ports are forwarded to your gardening environment:
  - MongoDB: 47017 → Forwards To 27017
  - Elasticsearch: 19200 → Forwards To 9200
  - kibana: 56010 → Forwards To 5601
- 
+ - Cassandra: 19042 → Forwards To 9024
+ - Kafka: 19092 → Forwards To 9092
+  
 Forwarding Additional Ports:
 ```yaml
 ports:

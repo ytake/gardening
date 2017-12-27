@@ -6,6 +6,8 @@ class Builder
     # Configure Local Variable To Access Scripts From Remote Location
     scriptDir = File.dirname(__FILE__)
 
+    config.ssh.forward_agent = true
+
     # Prevent TTY Errors
     config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
@@ -15,7 +17,11 @@ class Builder
     config.vm.hostname = settings["hostname"] ||= "gardening"
 
     # Configure A Private Network IP
-    config.vm.network :private_network, ip: settings["ip"] ||= "192.168.10.10"
+    if settings["ip"] != "autonetwork"
+      config.vm.network :private_network, ip: settings["ip"] ||= "192.168.10.10"
+    else
+      config.vm.network :private_network, :ip => "0.0.0.0", :auto_network => true
+    end
 
     # Configure Additional Networks
     if settings.has_key?("networks")
@@ -53,6 +59,8 @@ class Builder
         27017 => 47017,
         9200 => 19200,
         5601 => 56010,
+        9024 => 19024,
+        9092 => 19092,
     }
 
     # Use Default Port Forwarding Unless Overridden
@@ -114,16 +122,30 @@ class Builder
       s.path = scriptDir + "/clear-nginx.sh"
     end
 
+    # timezone
+    timezone = settings["timezone"] ||= "Asia/Tokyo"
+    config.vm.provision "shell" do |s|
+      s.path = scriptDir + "/setup-timezone.sh"
+      s.args = [timezone]
+    end
+
+    # choose PHP Version (update-alternatives: for cli, build, compile etc...)
+    php_alternatives = settings["php-alternatives"] ||= "7.2"
+    config.vm.provision "shell" do |s|
+      s.path = scriptDir + "/setup-php-alternatives.sh"
+      s.args = [php_alternatives]
+    end
+
     # choose web server
     web_server = settings["web_server"] ||= "nginx"
 
     settings["sites"].each do |site|
-
+      ## choose php(default: Laravel/Zend Framework3/Zend Expressive etc..), symfony(2.0~3.0), symfony4
       type = site["type"] ||= "php"
 
       config.vm.provision "shell" do |s|
         s.path = scriptDir + "/#{web_server}-server-#{type}.sh"
-        s.args = [site["map"], site["to"], site["port"] ||= "80", site["ssl"] ||= "443"]
+        s.args = [site["map"], site["to"], site["port"] ||= "80", site["ssl"] ||= "443", site["php"] ||= "7.2"]
       end
     end
 
@@ -146,6 +168,7 @@ class Builder
     # Configure Elasticsearch
     if (settings.has_key?("elasticsearch") && settings["elasticsearch"])
         config.vm.provision "shell" do |s|
+          s.path = scriptDir + "/setup-elasticsearch.sh"
           s.inline = "/bin/systemctl enable elasticsearch && /bin/systemctl daemon-reload && /bin/systemctl restart elasticsearch"
         end
     else
@@ -180,6 +203,32 @@ class Builder
       end
     end
 
+    # Configure Confluent Platform
+    if (settings.has_key?("confluent") && settings["confluent"])
+      # confluent platform start
+      config.vm.provision "shell" do |s|
+        s.path = scriptDir + "/setup-confluent.sh"
+      end
+    else
+      # confluent platform stop
+      config.vm.provision "shell" do |s|
+        s.inline = "sudo confluent stop"
+      end
+    end
+
+    # Configure Apache Cassandra
+    if (settings.has_key?("cassandra") && settings["cassandra"])
+      # cassandra start
+      config.vm.provision "shell" do |s|
+        s.path = scriptDir + "/setup-cassandra.sh"
+      end
+    else
+      # confluent platform stop
+      config.vm.provision "shell" do |s|
+        s.inline = "/bin/systemctl disable cassandra && /bin/systemctl stop cassandra"
+      end
+    end
+
     # Configure mongodb
     if (settings.has_key?("mongodb") && settings["mongodb"])
       # disable mongodb
@@ -190,6 +239,19 @@ class Builder
       # disable mongodb
       config.vm.provision "shell" do |s|
         s.inline = "/bin/systemctl disable mongod && /bin/systemctl stop mongod"
+      end
+    end
+
+    # Configure RabbitMQ
+    if (settings.has_key?("rabbitmq") && settings["rabbitmq"])
+      # disable mongodb
+      config.vm.provision "shell" do |s|
+        s.inline = "/bin/systemctl enable rabbitmq-server && /bin/systemctl restart rabbitmq-server && rabbitmq-plugins enable rabbitmq_management"
+      end
+    else
+      # disable mongodb
+      config.vm.provision "shell" do |s|
+        s.inline = "/bin/systemctl disable rabbitmq-server && /bin/systemctl stop rabbitmq-server"
       end
     end
 
@@ -225,7 +287,17 @@ class Builder
     if settings.has_key?("variables")
       settings["variables"].each do |var|
         config.vm.provision "shell" do |s|
-          s.inline = "echo \"\nenv[$1] = '$2'\" >> /etc/php-fpm.d/www.conf"
+          s.inline = "echo \"\nenv[$1] = '$2'\" >> /etc/opt/remi/php70/php-fpm.d/www.conf"
+          s.args = [var["key"], var["value"]]
+        end
+
+        config.vm.provision "shell" do |s|
+          s.inline = "echo \"\nenv[$1] = '$2'\" >> /etc/opt/remi/php71/php-fpm.d/www.conf"
+          s.args = [var["key"], var["value"]]
+        end
+
+        config.vm.provision "shell" do |s|
+          s.inline = "echo \"\nenv[$1] = '$2'\" >> /etc/opt/remi/php72/php-fpm.d/www.conf"
           s.args = [var["key"], var["value"]]
         end
 
@@ -234,9 +306,10 @@ class Builder
           s.args = [var["key"], var["value"]]
         end
       end
-      config.vm.provision "shell" do |s|
-        s.inline = "/bin/systemctl restart php-fpm"
-      end
+    end
+
+    config.vm.provision "shell" do |s|
+      s.inline = "/bin/systemctl restart php70-php-fpm && /bin/systemctl restart php71-php-fpm && /bin/systemctl restart php72-php-fpm"
     end
 
     # Update Composer On Every Provision
