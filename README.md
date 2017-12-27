@@ -229,7 +229,7 @@ web_server: httpd
 default PHP7.2
 
 ```yaml
-php-alternatives: 7.1
+php-alternatives: "7.1"
 ```
 
 (7.0 or 7.1 or 7.2)
