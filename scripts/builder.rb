@@ -13,7 +13,7 @@ class Builder
 
     # Configure The Box From ytake/gardening https://atlas.hashicorp.com/ytake/boxes/gardening
     config.vm.box = settings["box"] ||= "ytake/gardening"
-    config.vm.box_version = settings["version"] ||= ">= 1.0.0"
+    config.vm.box_version = settings["version"] ||= ">= 1.1.0"
     config.vm.hostname = settings["hostname"] ||= "gardening"
 
     # Configure A Private Network IP
@@ -265,11 +265,6 @@ class Builder
       config.vm.provision "shell" do |s|
         s.inline = "/bin/systemctl disable rabbitmq-server && /bin/systemctl stop rabbitmq-server"
       end
-    end
-
-    # couchbase-server service register
-    config.vm.provision "shell" do |s|
-      s.path = scriptDir + "/couchbase-server-register.sh"
     end
 
     # Configure couchbase-server
