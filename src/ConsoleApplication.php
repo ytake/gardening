@@ -3,10 +3,10 @@
 /**
  * ConsoleApplication.php
  */
+
 namespace Ytake\Gardening;
 
 use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -19,7 +19,7 @@ class ConsoleApplication extends Application
     private $name = "gardening";
 
     /** @var float  console application version */
-    private $version = '1.0.0';
+    private $version = '1.1.0';
 
     /**
      * ConsoleApplication constructor.

@@ -5,9 +5,12 @@ without requiring you to install PHP(7.0 ~ 7.2), a web server(Nginx or Apache),
 and any other server software on your local machine.
 
 php7 box:
+
 ```json
-"require-dev": {
-  "ytake/gardening": "~1.0"
+{
+  "require-dev": {
+    "ytake/gardening": "~1.0"
+  }
 }
 ```
 
@@ -21,7 +24,7 @@ https://atlas.hashicorp.com/ytake
  - Git
  - PHP 7.x (remi repository)
  - Apache (2.4.6)
- - Nginx (1.12)
+ - Nginx (1.14)
  - MySQL (5.7)
  - Sqlite3
  - PostgreSQL (10.1)
@@ -34,7 +37,7 @@ https://atlas.hashicorp.com/ytake
  - MongoDB
  - Java(1.8)
  - fluentd
- - Couchbase(4.5)
+ - Couchbase(5.1)
  - beanstalkd(1.10)
  - RabbitMQ(3.7.2)
  - Apache Cassandra(3.11)
@@ -59,14 +62,17 @@ ctype
 curl
 date
 dom
+ds
 event
 exif
 fileinfo
 filter
 ftp
 gd
+geoip
 gettext
 gmp
+grpc
 hash
 iconv
 igbinary
@@ -77,6 +83,7 @@ ldap
 libsodium
 libxml
 mbstring
+mcrypt
 memcached
 memprof
 mongodb
@@ -98,6 +105,7 @@ phalcon
 Phar
 phpiredis
 posix
+protobuf
 rdkafka
 readline
 redis
@@ -115,6 +123,7 @@ sqlsrv
 ssh2
 standard
 Stomp
+swoole
 sysvmsg
 sysvsem
 sysvshm
